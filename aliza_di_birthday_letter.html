@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff0f5">
+<title>For Aliza Di 💗</title>
+<style>
+  :root { --rose:#b94d73; --deep:#7c2948; --pink:#fff0f5; --cream:#fffaf7; --ink:#4e3040; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:22px; color:var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    background: radial-gradient(circle at top left,#ffe0eb 0,transparent 42%),
+                radial-gradient(circle at bottom right,#f9d7e4 0,transparent 40%), #fff8fb;
+  }
+  .page { width:min(100%,620px); }
+  .card {
+    background:rgba(255,250,252,.94); border:1px solid #f1c7d7; border-radius:25px;
+    box-shadow:0 18px 55px rgba(124,41,72,.12); padding:clamp(24px,6vw,46px);
+    text-align:center; min-height:440px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .tiny { color:var(--rose); letter-spacing:3px; text-transform:uppercase; font:600 11px Arial,sans-serif; }
+  h1 { color:var(--deep); font-size:clamp(31px,8vw,48px); line-height:1.12; margin:17px 0 12px; }
+  h2 { color:var(--deep); font-size:clamp(24px,6vw,34px); margin:0 0 20px; }
+  .heart { font-size:34px; margin:8px 0; }
+  .message { font-size:clamp(17px,4.3vw,20px); line-height:1.85; white-space:pre-line; }
+  .sub { font:14px/1.7 Arial,sans-serif; color:#8b6677; }
+  .controls { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:28px; }
+  button {
+    border:0; border-radius:999px; padding:13px 22px; font:600 14px Arial,sans-serif;
+    cursor:pointer; transition:transform .15s ease, opacity .15s ease;
+  }
+  button:active { transform:scale(.97); }
+  .primary { color:white; background:linear-gradient(135deg,#c75d83,#8f3156); box-shadow:0 6px 18px #c75d8333; }
+  .secondary { color:var(--deep); background:#f8e4ec; }
+  button:focus-visible { outline:3px solid #d88aa8; outline-offset:3px; }
+  .progress-wrap { height:4px; background:#f4dce6; border-radius:10px; overflow:hidden; margin:22px 0 0; }
+  .progress { height:100%; width:0%; background:var(--rose); transition:width .25s ease; }
+  .count { margin-top:10px; color:#a27c8c; font:12px Arial,sans-serif; }
+  .footer { text-align:center; margin-top:15px; color:#a27c8c; font:12px Arial,sans-serif; }
+  .hidden { display:none !important; }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="card" aria-live="polite">
+    <div class="tiny" id="eyebrow">A little birthday surprise</div>
+    <div id="content">
+      <div class="heart">💌</div>
+      <h1>For Aliza Di</h1>
+      <p class="message">A bond that isn't connected by blood, but is connected by heart. ❤️🫶🏻</p>
+      <p class="sub">A little letter made with lots of love, duas, and gratitude.</p>
+      <div class="controls"><button class="primary" id="start">Open Your Birthday Letter 💗</button></div>
+    </div>
+    <div class="progress-wrap hidden" id="progressWrap"><div class="progress" id="progress"></div></div>
+    <div class="count hidden" id="count"></div>
+  </section>
+  <div class="footer">Made with love for Aliza Di · 6 November 🎀</div>
+</main>
+<script>
+const pages = [
+  {
+    title:"Meri sabse pyaari Aliza Di 🥹❤️",
+    text:"Happy Birthday, meri pyaari Aliza Di! 🎂💗\n\nAaj ka din mere liye bhi bohot special hai, kyunki aaj us insaan ka birthday hai jo meri life mein sirf ek friend bankar nahi aayi, balki meri badi behen jaisi ban gayi."
+  },
+  {
+    title:"Aap mere liye bohot special ho 🌷",
+    text:"Di, aapko shayad andaza bhi nahi hai ki aap mere liye kitni special ho. Aap meri real sister nahi ho, lekin aapne mujhe jo pyaar, care aur guidance di hai, uske saamne khoon ke rishte ka hona zaroori hi nahi lagta.\n\nAapne mujhe apni chhoti behen ki tarah treat kiya, mujhe samjhaya, guide kiya aur woh pyaar diya jo ek chhoti behen apni badi behen se expect karti hai. ❤️"
+  },
+  {
+    title:"Allah ki taraf se ek khoobsurat blessing 🤍",
+    text:"Kabhi kabhi Allah humari zindagi mein aise log bhejta hai jo humare rishtedaar nahi hote, lekin dheere dheere humari family ban jaate hain. Mere liye aap unhi logon mein se ek ho, Di.\n\nMain Allah ka jitna shukr ada karun, utna kam hai ki mujhe aap jaisi Di mili. Alhamdulillah for you! 🤲🏻✨"
+  },
+  {
+    title:"Dil se ek baat 💌",
+    text:"Di, aap woh insaan ho jinki baatein main sunti hoon, jinse main seekhti hoon aur jinki guidance mere liye bohot matter karti hai. Jab mujhe kisi cheez mein confusion hota hai, toh aapki baatein mujhe samajhne mein help karti hain.\n\nAapne mujhe sirf advice nahi di, balki cheezon ko samajhne ka nazariya bhi diya. Aur mere liye yeh bohot badi baat hai."
+  },
+  {
+    title:"Sirf aapke liye ek shayari 🌙",
+    text:"Rishta nahi hai khoon ka, phir bhi dil ke paas ho,\nHazaaron logon ki bheed mein, aap mere liye khaas ho.\n\nJab bhi mujhe zaroorat ho, aap raasta dikhati ho,\nEk badi behen ki tarah, mujhe har baat samjhati ho.\n\nAllah se bas itni si dua hai meri,\nKhushiyon se bhari rahe zindagi aapki.\n\nHar dua aapki qubool ho, har khwaab aapka poora ho,\nAur aapki zindagi ka har aane wala din, aaj se bhi zyada khoobsurat ho. 🤍🌷"
+  },
+  {
+    title:"Meri taraf se aapke liye duaein 🤲🏻",
+    text:"Ya Allah, meri Aliza Di ko hamesha apni hifazat mein rakhna. Unki zindagi mein khushiyan, sukoon, sehat aur barkat ata farmana.\n\nUnki har achhi dua qubool farmana, unke liye mushkilein aasaan karna aur unhe har buri nazar aur pareshani se mehfooz rakhna.\n\nUnke dil ko sukoon dena, unki pareshaniyon ko door karna aur unhe duniya aur Aakhirat dono mein kamyabi ata farmana.\n\nUnki muskurahat hamesha qayam rakhna aur unhe apni rehmat se kabhi mayoos na hone dena.\n\nAameen Summa Aameen. 🤍"
+  },
+  {
+    title:"Ek baat hamesha yaad rakhna 🫂",
+    text:"Ho sakta hai main har baar apni feelings express na kar paun. Ho sakta hai main har baar aapko bata na paun ki aap mere liye kitni important ho. Lekin iska matlab yeh bilkul nahi hai ki aap mere liye special nahi ho.\n\nAapki meri life mein ek alag jagah hai, Di. Aisi jagah jise main words mein explain nahi kar sakti.\n\nMain chahti hoon ki aap hamesha yaad rakho ki aapki chhoti behen aapki bohot respect karti hai, aapse bohot kuch seekhti hai aur aapko apni life ka ek bohot special hissa maanti hai. ❤️"
+  },
+  {
+    title:"Ek aur chhoti si shayari 🌸",
+    text:"Khoon ka rishta nahi, par dil ka rishta hai,\nAap meri zindagi ka ek khoobsurat hissa hain.\n\nHar kisi ko nahi milti aap jaisi Di,\nAur main khushnaseeb hoon ki meri Aliza Di aap hi hain. 🫶🏻❤️"
+  },
+  {
+    title:"Happy Birthday, Aliza Di! 🎂",
+    text:"Allah aapko itni khushiyan de ki aapki aankhon mein aansu aayein bhi, toh sirf khushi ke hon. Allah aapko aapki soch se bhi zyada kamyabi de aur aapki zindagi ko sukoon, mohabbat aur barkat se bhar de.\n\nAap hamesha aise hi pyaari, caring aur wonderful rehna. Aapki smile hamesha bani rahe aur aapke dil ki achhi khwahishein poori hon. 🥹💗"
+  },
+  {
+    title:"A final note, just for you 🤍",
+    text:"With all my love, endless duas, and a heart full of gratitude,\n\nYour little sister, who will always look up to you, respect you, and cherish the beautiful bond we share.\n\nHappy Birthday, Aliza Di! May Allah bless you today, tomorrow, and always. You will always hold a special place in my heart.\n\nI love you so much! ❤️🎀"
+  }
+];
+let index = -1;
+const content = document.getElementById("content");
+const eyebrow = document.getElementById("eyebrow");
+const progressWrap = document.getElementById("progressWrap");
+const progress = document.getElementById("progress");
+const count = document.getElementById("count");
+function showPage(i) {
+  index = i;
+  eyebrow.textContent = "A birthday letter for Aliza Di";
+  content.innerHTML = "";
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = ["💗","🌷","🤍","💌","🌙","🤲🏻","🫂","🌸","🎂","💖"][i] || "💗";
+  const h = document.createElement("h2");
+  h.textContent = pages[i].title;
+  const p = document.createElement("p");
+  p.className = "message";
+  p.textContent = pages[i].text;
+  content.append(heart,h,p);
+  const controls = document.createElement("div");
+  controls.className = "controls";
+  if (i > 0) {
+    const back = document.createElement("button");
+    back.className = "secondary";
+    back.textContent = "← Previous";
+    back.onclick = () => showPage(index - 1);
+    controls.append(back);
+  }
+  const next = document.createElement("button");
+  next.className = "primary";
+  next.textContent = i === pages.length - 1 ? "Read Again 💗" : "Next Message 💌 →";
+  next.onclick = () => i === pages.length - 1 ? showPage(0) : showPage(index + 1);
+  controls.append(next);
+  content.append(controls);
+  progressWrap.classList.remove("hidden");
+  count.classList.remove("hidden");
+  progress.style.width = ((i + 1) / pages.length * 100) + "%";
+  count.textContent = "Message " + (i + 1) + " of " + pages.length;
+}
+document.getElementById("start").onclick = () => showPage(0);
+</script>
+</body>
+</html>
